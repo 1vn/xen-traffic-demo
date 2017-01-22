@@ -70,7 +70,6 @@ class Car extends Component {
 	}
 	componentDidMount(){
 		setTimeout(() => {
-			console.log("wee woo");
 			this.setState({
 				left: Math.max(2500 - this.props.data.speed, 800),
 				top: this.props.data.lane * 50 + 200,
@@ -141,7 +140,6 @@ class Traffic extends Component {
 			if(c && c.expire < (new Date()).getTime()){
 				let currentCars = this.state.cars
 				delete currentCars[i]
-				console.log("deleting ", c.id)
 				this.setState({
 					cars: currentCars
 				});
@@ -153,7 +151,6 @@ class Traffic extends Component {
 		if(this.props.level != nextProps.level){
 			clearInterval(this.state.driveInterval);
 			let driveInterval = setInterval(this.driveCar, this.getDriveInterval(nextProps.level));
-			console.log(nextProps.level);
 			this.setState({
 				driveInterval: driveInterval,
 			});
