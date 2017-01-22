@@ -1,0 +1,28 @@
+@mixin respond-to-specific($width){
+	@media only screen and (max-width: $width){
+		@content
+	}
+}
+
+#highway{
+	position: relative;
+	background: red;
+	width: 650px;
+	height: 350px;
+	margin: 0 auto;
+	overflow: hidden;
+	color: #000000;
+	@include respond-to-specific(700px){
+		width: 98%;
+	}
+}
+
+.car{
+	background: #000000;
+	transition: left 15000ms;
+	position: absolute;
+	height: 30px;
+	width: 50px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}

@@ -5,24 +5,26 @@ import (
 	"flag"
 	"html/template"
 	"log"
+	"math/rand"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
 const (
-	HIGH_TRAFFIC   string = "high"
-	MEDIUM_TRAFFIC string = "med"
-	LOW_TRAFFIC    string = "low"
+	HIGH_TRAFFIC   uint64 = 3
+	MEDIUM_TRAFFIC uint64 = 2
+	LOW_TRAFFIC    uint64 = 1
 )
 
 var (
 	RunMode   string
 	templates *template.Template
+	levels    = [3]uint64{HIGH_TRAFFIC, MEDIUM_TRAFFIC, LOW_TRAFFIC}
 )
 
 type trafficResponse struct {
-	Level string `json:"level"`
+	Level uint64 `json:"level"`
 }
 
 func initTmpl() {
@@ -54,15 +56,10 @@ func renderTemplate(w http.ResponseWriter, tmpl string, renderArgs map[string]in
 }
 
 func Traffic(w http.ResponseWriter, r *http.Request) {
-	debug := r.URL.Query().Get("debug")
-	switch debug {
-	case LOW_TRAFFIC, MEDIUM_TRAFFIC, HIGH_TRAFFIC:
-		renderJson(w, trafficResponse{
-			Level: debug,
-		})
-	default:
-		//traffic function
-	}
+	renderJson(w, trafficResponse{
+		Level: levels[rand.Intn(3)],
+	})
+
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {

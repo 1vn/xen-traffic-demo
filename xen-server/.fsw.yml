@@ -7,7 +7,7 @@ triggers:
   - '**/*.py'
   env:
     DEBUG: "1"
-  cmd: go vet && go build && ./xen-server
+  cmd: go vet && go build && ./xen-server -runMode=dev
   shell: true
   delay: 100ms
   stop_timeout: 500ms
