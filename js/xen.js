@@ -20,7 +20,7 @@ class XenApp extends Component {
 		super(props);
 
 		this.state = {
-			level: 1,
+			level: 3,
 			speed: 300,
 		}
 
@@ -39,7 +39,7 @@ class XenApp extends Component {
 						let receiveDate = (new Date()).getTime();
 						this.setState({
 							level: responseJson.level,
-							speed: Math.max(receiveDate - sendDate, 1000),
+							speed: Math.min((receiveDate - sendDate) * 10, 500),
 						})
 					});
 	}
@@ -51,9 +51,6 @@ class XenApp extends Component {
 	render() {
 		return (
 			<div id={this.props.id}>
-				level: {this.state.level}
-				<br/>
-				speed: {this.state.speed}
 				<Traffic level={this.state.level} speed={this.state.speed}/>
 			</div>
 		)
@@ -63,18 +60,20 @@ class XenApp extends Component {
 class Car extends Component {
 	constructor(props) {
 		super(props);
-
+		
+		let carPic = Math.round(Math.random() * 1 + 1);
 		this.state = {
-			class: "car",
-			left: -300
-		}
+			left: -300,
+			background: `url('/assets/img/car${carPic}.png') no-repeat 0 10px`,
+			offset: Math.round(Math.random() * 10) - 10
+		};
 	}
 	componentDidMount(){
 		setTimeout(() => {
 			console.log("wee woo");
 			this.setState({
-				class: "car",
-				left: Math.max(4000 - this.props.data.speed, 800)
+				left: Math.max(2500 - this.props.data.speed, 800),
+				top: this.props.data.lane * 50 + 200,
 			})
 		}, 50);
 	}
@@ -84,11 +83,12 @@ class Car extends Component {
 				<div 
 					ref={this.props.data.id} 
 					style={{
-						top: this.props.data.lane * 50 + 25,
-						left: this.state.left
+						top: this.props.data.lane * 40 + 196 + this.state.offset,
+						left: this.state.left,
+						background: this.state.background,
+						backgroundSize: "auto 20px"
 					}} 
-					className={this.state.class}>
-					{this.props.data.id}
+					className="car">
 				</div>)
 	}
 }
@@ -130,7 +130,7 @@ class Traffic extends Component {
 				id: carID,
 				lane: lane, 
 				speed: this.props.speed,
-				expire: (new Date()).getTime() + this.props.speed*30
+				expire: (new Date()).getTime() + this.props.speed + 15*1000
 			}])
 		})
 	}

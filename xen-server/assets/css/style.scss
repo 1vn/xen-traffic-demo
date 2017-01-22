@@ -3,12 +3,16 @@
 		@content
 	}
 }
+body{
+	background: #333333;
+}
 
 #highway{
 	position: relative;
-	background: red;
-	width: 650px;
-	height: 350px;
+	background: url("/assets/img/bg-night.png") no-repeat;
+	background-size: auto 650px;
+	width: 900px;
+	height: 650px;
 	margin: 0 auto;
 	overflow: hidden;
 	color: #000000;
@@ -18,11 +22,10 @@
 }
 
 .car{
-	background: #000000;
-	transition: left 15000ms;
+	transition: left 20000ms, top 10000ms;
 	position: absolute;
-	height: 30px;
 	width: 50px;
+	height: 15px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
