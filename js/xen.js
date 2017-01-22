@@ -62,17 +62,18 @@ class Car extends Component {
 		super(props);
 		
 		let carPic = Math.round(Math.random() * 6 + 1);
+		let offset = (Math.random() * 20 - 10)
 		this.state = {
 			left: -300,
 			background: `url('/assets/img/car${carPic}.png') no-repeat 0 10px`,
-			offset: Math.round(Math.random() * 10) - 10
+			top: this.props.data.lane * 40 + 196 - offset
 		};
 	}
 	componentDidMount(){
 		setTimeout(() => {
 			this.setState({
 				left: Math.max(2500 - this.props.data.speed, 800),
-				top: this.props.data.lane * 50 + 200,
+				top: this.props.data.lane * 40 + 196,
 			})
 		}, 50);
 	}
@@ -82,7 +83,7 @@ class Car extends Component {
 				<div 
 					ref={this.props.data.id} 
 					style={{
-						top: this.props.data.lane * 40 + 196 + this.state.offset,
+						top: this.state.top,
 						left: this.state.left,
 						background: this.state.background,
 						backgroundSize: "auto 20px"
