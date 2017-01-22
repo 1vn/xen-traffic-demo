@@ -61,7 +61,7 @@ class Car extends Component {
 	constructor(props) {
 		super(props);
 		
-		let carPic = Math.round(Math.random() * 3 + 1);
+		let carPic = Math.round(Math.random() * 6 + 1);
 		this.state = {
 			left: -300,
 			background: `url('/assets/img/car${carPic}.png') no-repeat 0 10px`,
